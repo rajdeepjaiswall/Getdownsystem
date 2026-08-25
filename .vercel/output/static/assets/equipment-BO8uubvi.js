@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-CM8U5GxS.js";import{t}from"./facility-page-Bi2VzajJ.js";var n=e(),r=()=>(0,n.jsx)(t,{kind:`equipment`,title:`Equipment`,hint:`The list members see when they ask ‘do you have a squat rack?’ Fill it once; it lives on your public page.`});export{r as component};

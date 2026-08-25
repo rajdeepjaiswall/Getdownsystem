@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/g/shakti-fitness",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 1904,
+      "bodyTextHash": "597594ad047587c51e8e294723e0134528bfa5deb45a62214b55537e83a1021e",
+      "bodyTextPrefix": "Shakti Fitness Join Shakti Fitness Prayagraj · Est. 2018 Shakti ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/gym-page.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 1904,
+      "bodyTextHash": "597594ad047587c51e8e294723e0134528bfa5deb45a62214b55537e83a1021e",
+      "bodyTextPrefix": "Shakti Fitness Join Shakti Fitness Prayagraj · Est. 2018 Shakti ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/gym-page-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/gym-page.json"
+}

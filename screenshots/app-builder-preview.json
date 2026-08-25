@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 2725,
+      "bodyTextHash": "1da7ecc8912364fe39cf2ed27b488fbcd9be6a446ef1bddbaa426483ebaef133",
+      "bodyTextPrefix": "Getdown Fitness GET DOWN FOUNDATION Features Pricing Contact Log",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 2693,
+      "bodyTextHash": "3b1a228e71bb0d3a806f937d9c5d5da09beec31de844f7a6cb2f67e3bf7915dc",
+      "bodyTextPrefix": "Getdown Fitness GET DOWN FOUNDATION Start free GYM SOFTWARE · PR",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #fbfcfa;
+  --color-surface: #ffffff;
+  --color-border: #e8ede6;
+  --color-primary: #5b8c51;
+  --color-primary-hover: #4a7542;
+  --color-primary-tint: #edf3ea;
+  --color-accent-clay: #b08968;
+  --color-text: #1e241c;
+  --color-text-muted: #6b7566;
+  --color-danger: #b42318;
+  --color-danger-tint: #fef3f2;
+  --color-warn: #b54708;
+  --color-warn-tint: #fffaeb;
+  --color-ring: #5b8c51;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 22px;
+  --radius-3xl: 28px;
+
+  --shadow-soft: 0 1px 2px rgb(30 36 28 / 0.04), 0 8px 24px rgb(30 36 28 / 0.05);
+
+  --text-label: 0.6875rem;
+  --tracking-label: 0.08em;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  h3,
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  .tabular,
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .label-caps {
+    font-family: var(--font-sans);
+    font-size: var(--text-label);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .fade-up {
+    animation: fade-up 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .fade-up-seq > * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

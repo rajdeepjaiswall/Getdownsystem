@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/login",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 238,
+      "bodyTextHash": "45b091a41cf24930d9367aa35a1eab82760b12318a836d7c58f7801665f8b71f",
+      "bodyTextPrefix": "Getdown Fitness GET DOWN FOUNDATION Log in Owners, staff, traine",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/login.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 238,
+      "bodyTextHash": "45b091a41cf24930d9367aa35a1eab82760b12318a836d7c58f7801665f8b71f",
+      "bodyTextPrefix": "Getdown Fitness GET DOWN FOUNDATION Log in Owners, staff, traine",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/login-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/login.json"
+}

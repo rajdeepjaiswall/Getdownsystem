@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="Getdown Fitness">
+  <rect width="16" height="16" rx="4" fill="#FBFCFA"/>
+  <path
+    d="M11.6 5.18 A4.7 4.7 0 1 0 11.6 11.22"
+    fill="none"
+    stroke="#5B8C51"
+    stroke-width="2.5"
+    stroke-linecap="butt"
+  />
+  <rect x="7.6" y="6.95" width="5.5" height="2.5" rx="0.2" fill="#5B8C51"/>
+</svg>

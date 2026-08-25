@@ -1,0 +1,234 @@
+# Getdown Fitness — Lovable Build Prompt
+
+A multi-tenant gym management SaaS by Get Down Foundation, Prayagraj.
+
+**How to use this file:** send one phase at a time to Lovable. Do not send the next phase until the previous one builds clean and you have looked at it. Each phase assumes everything before it already exists.
+
+**The core idea, so Lovable never loses it:** this is not a gym website. It is software that any gym can sign up for, brand as their own, and run their entire operation on. Every table, every screen, every policy is scoped to one gym. One gym owner must never see another gym's data.
+
+---
+
+## Phase 1 — Marketing site and design system
+
+Build the public marketing site for **Getdown Fitness**, a gym management software product.
+
+**Audience:** the owner of a single-location gym in a tier-2 Indian city, currently running his gym on a paper register and WhatsApp. He is not technical. He is deciding whether software is worth ₹2,500 a month.
+
+**Stack:** React, Tailwind, shadcn/ui, Supabase. Mobile-first, must look correct down to 360px width.
+
+### Design tokens
+
+Set these as CSS variables and use them everywhere. Do not introduce other colours.
+
+| Token | Value | Use |
+|---|---|---|
+| `--bg` | `#FBFCFA` | page background |
+| `--surface` | `#FFFFFF` | cards |
+| `--border` | `#E8EDE6` | hairline borders |
+| `--primary` | `#5B8C51` | buttons, links, active states |
+| `--primary-hover` | `#4A7542` | hover |
+| `--primary-tint` | `#EDF3EA` | selected rows, badges |
+| `--accent-clay` | `#B08968` | enterprise band, big numerals, underlines only |
+| `--text` | `#1E241C` | body text |
+| `--text-muted` | `#6B7566` | secondary text |
+| `--radius` | `14px` | all cards and buttons |
+
+Shadows are soft and low only. **No glassmorphism, no glow, no dark hero.** This is a calm, daylight product.
+
+**Type:** Fraunces for h1 and h2 only. Inter for everything else. Small labels are Inter, uppercase, 11px, letter-spacing 0.08em, `--text-muted`. All numbers use `font-variant-numeric: tabular-nums`.
+
+### Sections, in this order
+
+1. **Nav** — logo left; Features, Pricing, Contact; "Log in" text link; "Start free" green button.
+2. **Hero** — headline about running a gym without a register. Two buttons: "Start free" → `/signup`, "Talk to us" → `/contact`. To the right, a dashboard mock built as **real HTML, not an image** — a members table and a card reading "Renewals due: 12".
+3. **Problem → Solution** — three cards: the register, the missed renewals, the WhatsApp chaos.
+4. **Features grid** — eight cards: Member records, Plans and renewals, QR check-in, Staff and trainer logins, Member mobile app, Enquiries and leads, Transformations gallery, Reports.
+5. **Pricing** — `id="pricing"`, four cards:
+   - **Starter** ₹2,500/month — up to 50 members
+   - **Growth** ₹4,500/month — up to 100 members — *most popular*, green border and badge
+   - **Pro** ₹6,000/month — up to 150 members
+   - **Enterprise** — custom pricing, 150+ members or multiple branches, clay accent, button reads "Contact us" → `/contact`
+
+   The three paid cards link to `/signup?plan=starter|growth|pro`.
+
+   Directly under the cards, state plainly: **every plan includes every feature and unlimited staff logins. Only the member limit changes.**
+
+   **Signature element:** one continuous horizontal rail running underneath all four pricing cards. On hover or keyboard focus of a card, the rail fills to that plan's capacity — 50, 100, 150, ∞ — with the number in large tabular numerals. This is the one piece of motion on the page, and it exists because capacity is the only real difference between the tiers.
+6. **FAQ** — accordion. Include: what happens when I cross my member limit, can I change plans, is my member data safe, do my members need to install anything.
+7. **Contact form** — gym name, owner name, phone, city, current member count, message. Saves to Supabase `leads`. Also a WhatsApp button.
+8. **Footer** — Get Down Foundation, Prayagraj.
+
+Respect `prefers-reduced-motion`. 2px green focus ring on every interactive element. The only scroll animation is a soft fade-up.
+
+---
+
+## Phase 2 — Multi-tenant foundation
+
+Build the database, auth, and tenancy. No new UI beyond the auth screens.
+
+### Tables
+
+Every business table carries a `gym_id` foreign key. No exceptions.
+
+**`gyms`** — the tenant record:
+`id`, `name`, `slug` (unique, url-safe), `city`, `address`, `phone`, `email`, `logo_url`, `cover_image_url`, `brand_color` (default `#5B8C51`), `about_text`, `established_year`, `opening_hours` (jsonb), `plan`, `member_cap`, `subscription_status` (`trial` / `active` / `past_due` / `suspended`), `trial_ends_at`, `current_period_end`, `custom_domain` (nullable), `domain_status` (`none` / `pending` / `live`), `show_powered_by` (boolean, default true), `onboarding_completed` (boolean), `created_at`.
+
+**Other tables:** `profiles`, `members`, `plans`, `member_subscriptions`, `checkins`, `enquiries`, `trainers`, `amenities`, `equipment`, `testimonials`, `transformations`, `payments`, `payment_settings`, `leads`, `staff_invites`, `audit_log`.
+
+`amenities` and `equipment` each need: `gym_id`, `name`, `icon`, `description`, `image_url`, `display_order`, `is_visible`. These are per-gym rows — each gym builds its own list, and that list is what renders on that gym's public page and inside its member app.
+
+### Roles and RLS — read this carefully
+
+Roles enum: `super_admin`, `gym_owner`, `staff`, `trainer`, `member`. Store them in a **separate `user_roles` table**, never as a column on `profiles`.
+
+Create two SECURITY DEFINER functions: `has_role(user_id, role)` and `get_my_gym_id()`. All RLS policies call these. This is required — reading roles directly inside a policy causes infinite recursion.
+
+Policy shape: every business table is scoped to `gym_id = get_my_gym_id()`. `super_admin` bypasses all scoping. A `member` sees only their own row and their own check-ins.
+
+**Critical:** every RLS policy must be paired with an explicit `GRANT` to the `authenticated` role. Without the grant, the policy silently returns empty rows and the app looks broken with no error anywhere.
+
+### Seat enforcement
+
+A `BEFORE INSERT` trigger on `members` counts active members for that `gym_id` and rejects the insert if it would exceed `gyms.member_cap`. The UI catches this and shows a friendly message with an upgrade link — never a raw Postgres error.
+
+### Auth routes
+
+`/login`, `/forgot-password`, `/signup`. After login, redirect by role: `super_admin` → `/god`, `gym_owner` and `staff` → `/admin`, `trainer` → `/trainer`, `member` → `/app`.
+
+---
+
+## Phase 3 — Gym owner admin panel
+
+Build `/admin`. Light theme, sidebar shell, green active state. Gated to `gym_owner` and `staff`. Every query scoped to the logged-in user's gym.
+
+**Sidebar — Operations:** Overview, Members, Signups (with pending count badge), Renewals Due, Check-ins, Enquiries, Red List (members with no attendance in 15+ days).
+
+**Sidebar — Content:** Plans, Trainers, Amenities, Equipment, Testimonials, Transformations, Gym profile.
+
+**Sidebar — Settings:** gym details and branding, staff invites by email with role, current plan with usage and upgrade link, change password.
+
+**Overview** shows KPI cards plus a capacity bar reading "42 / 50 members used". When usage crosses 80%, show an upgrade prompt.
+
+**Amenities and Equipment** are full CRUD with image upload, description, drag-to-reorder, and a visibility toggle. Whatever the owner adds here appears cumulatively on his gym's public page and in his members' app — say so in the UI so he understands why he is filling it in.
+
+Staff role sees Operations only. Content and Settings are hidden from staff.
+
+---
+
+## Phase 4 — Onboarding wizard and the gym's own branded page
+
+### The wizard
+
+The moment a gym account is created, send the owner to `/setup`, not to an empty dashboard. He cannot reach `/admin` until he finishes or explicitly skips. Save after every screen so he can close the tab and come back.
+
+**Screen 1 — Gym identity:** name, logo upload, cover photo, brand colour, address, city, phone, opening hours.
+
+**Screen 2 — Your plans:** the memberships he sells to his own members. Pre-fill three typical Indian gym plans — monthly, quarterly, yearly — with editable names, durations, and prices. He edits rather than creates from nothing.
+
+**Screen 3 — Facilities:** amenities and equipment picked from a **checklist** of common items, not a blank form. He ticks what he has, then adds anything missing. Each ticked item becomes a row he can later photograph and describe.
+
+**Screen 4 — Trainers:** name, photo, speciality. Skippable.
+
+**Screen 5 — Your members:** three routes, offered together —
+- type members in one at a time,
+- **bulk upload from CSV or Excel**, with column mapping and a preview before commit,
+- **share a signup link or QR** where the member fills his own details on his phone and the owner approves from the Signups screen.
+
+The third route is what makes onboarding actually finish for a gym with 200 names in a register. Make it prominent.
+
+**Screen 6 — Your story:** do not show a blank textarea. Ask three short questions — what year did you start, what are you proudest of, who is this gym for — and generate editable "about us" copy from the answers. He can rewrite it, but he is never staring at an empty box.
+
+End on a summary screen showing what is now live, with a link to his public gym page.
+
+### The gym's public page
+
+Each gym gets `/g/:slug` — a public page rendered entirely from that gym's own data: their logo, brand colour, cover photo, about text, amenities, equipment, trainers, plans, transformations, and an enquiry form writing to their `enquiries` table.
+
+This is the payoff for filling in the wizard. Show it to him at the end.
+
+---
+
+## Phase 5 — Member app and trainer portal
+
+**`/app`** — mobile-first, bottom tab bar, branded with the gym's logo and colour:
+- **Home** — membership status, days remaining, attendance streak
+- **Check in** — scan the gate QR
+- **My plan** — assigned workout and diet
+- **Progress** — weight log, before/after photos
+- **Profile**
+
+Members are invited or approved by the gym. They cannot self-register into a gym they were not added to.
+
+**`/trainer`** — assigned clients, workout and diet planner, attendance marking. Scoped to their gym.
+
+---
+
+## Phase 6 — Payments, God panel, branding and domains
+
+This is the layer that makes Getdown Fitness a business rather than a demo.
+
+### 6a. Switchable payment gateway
+
+**Do not hardwire Razorpay.** Build a payment provider abstraction behind one common interface, with a `payment_settings` table holding the active provider and its keys.
+
+- Providers: `manual`, `razorpay`, and a stub for a future third.
+- **`manual` is the default and must fully work on its own.** The owner sees UPI details and an "I have paid" button; the payment lands in the god panel as pending; you mark it received and the account activates. For the first gyms in Prayagraj this is all that is needed.
+- `razorpay` uses checkout with **signature verification in a Supabase edge function**, never in the browser. Keys are read server-side, never bundled into the frontend.
+- Switching provider in the god panel changes checkout for all gyms with no code change and no redeploy.
+
+Every payment, whatever the provider, writes one row to `payments` with gym, amount, method, status, reference, and date.
+
+### 6b. Self-serve signup
+
+`/signup?plan=growth` collects gym name, owner name, email, phone, city. It creates the gym, the owner profile, and the `gym_owner` role, then runs checkout with whichever provider is active. On success, set `subscription_status = active` and `member_cap` from the plan, then send him to `/setup`.
+
+Enterprise has no self-serve path. It routes to `/contact` and you provision it manually from the god panel.
+
+### 6c. God panel
+
+Route `/god`. Gated to `super_admin` only — at the route level and again in RLS.
+
+**Login access:** a small, low-contrast "Admin" link in the marketing site footer, and a "Super admin" item in the sidebar that renders **only** when the logged-in user holds the `super_admin` role. Both lead to `/login`; the role decides the destination.
+
+**On authentication — this matters.** Do not hardcode any username or password anywhere in the code. Anything written in the source ships to the browser, and anyone who found `/god` would own every gym's member data at once. Instead: Rajdeep creates one normal Supabase account, and that account is granted `super_admin` in `user_roles` by a one-time SQL statement run in the Supabase editor, not by the app. The email can be anything he likes. The password is set once by him and never appears in the repository. The result is identical — only he gets in — with nothing guessable and no secret in the bundle.
+
+**Overview:** total gyms, active vs suspended, monthly recurring revenue, gyms near their member cap (these are the upgrade conversations), signups this month, payments awaiting manual confirmation.
+
+**Gyms table:** gym, city, owner phone, plan, members used against cap, last login, subscription status. Searchable, filterable by plan and status.
+
+**Gym detail — full control:**
+- change plan
+- **override `member_cap` manually** — this is how Enterprise deals get delivered without touching code
+- extend `current_period_end` — for cash or direct UPI payments
+- suspend and reactivate
+- mark a pending manual payment as received
+- **impersonate** the owner to fix something while he is on the phone, written to `audit_log`
+- edit branding, toggle "Powered by Getdown Fitness", assign a domain
+
+**Payments:** every payment across every gym, filterable, with manual confirmation actions.
+
+**Leads:** everything from the marketing contact form, with status and notes.
+
+**Settings:** active payment provider and keys; plan definitions and prices in one place, so a price change does not require a redeploy.
+
+### 6d. Branding and domains
+
+Because gyms present this as their own, branding must be data, never hardcoded.
+
+**Branding:** the gym's `logo_url`, `name`, and `brand_color` render in the member app header, the trainer portal, the public gym page, and on emails and receipts. Getdown Fitness keeps a small "Powered by Getdown Fitness" mark, which the god panel can switch off per gym for white-label deals.
+
+**Domains, in the achievable order:**
+
+1. **Subdomain — build this now.** Every gym gets `slug.getdownfitness.in` automatically at signup. One wildcard DNS record on your side, and the app resolves the gym from the hostname. No per-gym setup, works immediately, and it already reads as their own address to their members.
+2. **Custom domain — build the plumbing now, finish it later.** The god panel has a field to set `custom_domain` and a `domain_status` of pending or live, plus on-screen instructions showing the CNAME record the owner must add at his registrar. Because the app already resolves a gym by hostname, the moment DNS and the host certificate are in place it works with no code change.
+
+Do hostname resolution once, in one place, and both cases fall out of it.
+
+---
+
+## Notes for Rajdeep
+
+- Prices are written as **monthly**. If they are not, four places in this file need changing.
+- Start on `manual` payments. Turn Razorpay on when you actually want it — and note that true recurring billing needs eMandate or UPI Autopay. One-time charges plus a renewal reminder is a perfectly reasonable first version.
+- Your first five gyms should be white-glove regardless of what the software can do. Sit with the owner, import his register yourself. You will find where it breaks before a stranger does.
+- Remove any demo or test OTP from the auth flow before a real gym goes on this.

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="Getdown Fitness">
+  <rect width="16" height="16" rx="4" fill="#FBFCFA"/>
+  <!-- two-finger OK: bigger hole, thicker bars — reads at 16px -->
+  <g fill="#5B8C51">
+    <rect x="6.1" y="1.2" width="2.9" height="7.2" rx="1.45"/>
+    <rect x="9.7" y="1.5" width="2.9" height="6.8" rx="1.45"/>
+  </g>
+  <circle cx="7.2" cy="10.1" r="3.85" fill="none" stroke="#5B8C51" stroke-width="2.4"/>
+</svg>

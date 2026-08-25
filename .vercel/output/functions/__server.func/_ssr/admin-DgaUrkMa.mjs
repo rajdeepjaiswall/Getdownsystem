@@ -1,0 +1,36 @@
+import { r as createServerFn } from "./ssr.mjs";
+import { t as createSsrRpc } from "./createSsrRpc-B2Izd0c7.mjs";
+import { t as authMiddleware } from "./middleware-DaOqJC0Q.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/admin-DgaUrkMa.js
+var getOverview = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("1cdda05c017f50bdd6729843c75cd9065aaa161a118d6718b92108f2d37cb0f6"));
+var listMembers = createServerFn({ method: "GET" }).middleware([authMiddleware]).validator((d = {}) => d).handler(createSsrRpc("e00ebf6c8bec020fcc78320bcf48c647793926ebaa2b1eb8716e1d67784a27bd"));
+var upsertMember = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("6d829f4cf811e261f46b55e989a488d1d72a1c9e62e6b627f2732fa56b2e8bb0"));
+var approveMember = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("0e60cb9fb733c7f1a33f9f7b0d229085a764695579cf423d11655c878d4e7599"));
+var rejectMember = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("0179a2f1eea486d0d81c9cb9a87b96ada96142b285775d5b3ca006be4d605a9a"));
+var importMembers = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("b38672ad9864496ec6b227b952df8a484baea4dc40df5a0dc7e87697b4023e1f"));
+var listRenewals = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("ab87aaafb5c887cc3d03f4829fe88dd0e4a4002d875b9e7ac622b7c284614ce5"));
+var renewSubscription = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("5391dfdf5d42bf49b07619477a8d7a9e421ac34229011f7c07421df54ee83a82"));
+var listCheckins = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("109199ec09636ec25b8c2722e1c8c236cb05ce300427b53058fcf2743515adeb"));
+var listEnquiries = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("94603f7e3a4f63b3d4915a78c36ef3cbb6b2a26be5d3b3af241b6773761f7f94"));
+var setEnquiryStatus = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("a7d2f01ad0add52039345ff561561a34555bb5e172d1a7c799299670c4ab7f7e"));
+var listRedList = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("106ae36947e7d478dae76afd99d286b5d7645542d754a64746ba3711695c02d8"));
+var listPlans = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("b8bdefebd5d0d220de3fd6ed148e6c937c117d7aba658a4e81a235c9951b01f2"));
+var savePlan = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("9a130a6d46562ba55fb1cd538080a8f5092f0441146d20f5409a34a447f8dfbc"));
+var listTrainers = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("00eb4e54b513daef97c67626faf2b06458c2a6c43739133b467779262df91b83"));
+var saveTrainer = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("62d878597c8bb04b688c11b2ebbf478157e08119585055f2399feb0e947adf76"));
+var listAmenities = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("3e3d3514bdc5bc32a0df6d6e1626535f9d17b8cafeedad3c7819996972cc133d"));
+var listEquipment = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("b89a6041e7e7846a910c6f94b88ebd838668a277c1101b87dcf704585c2999a1"));
+var saveFacility = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("16fbf7a16c542f48c177e204b3dbe663dfcd74cb7d94df1eb9aaa8e5de579bec"));
+var reorderFacilities = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("ca49428868fed86d3246396c094e3adff259a5129fc989cd29ba4b0837365cda"));
+var deleteFacility = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("382ee802fd98e51e1c8bf1e38c9954d33369bc563d606420a951245921f4114e"));
+var listTestimonials = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("6b0a3fa1762d4cb5b67ac9500f81a3d0e067c87e075064c91cbb5f52e0a8475f"));
+var saveTestimonial = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("e3dff8c5a0e85b347ce83ad844e80ec6cc22f642c9d4f839bd54541e0663fcf6"));
+var listTransformations = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("3d072e0e6aaeb56c4f15bae8e31bb036cdfe11b0ea65a0c34afd4764e0e060fa"));
+var saveTransformation = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("190d3f1290f4cb2c883d45366672d2fbfd3a5f3bda35e923e9e10da8ffa94aa6"));
+var updateGym = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("b9891825cdac267256cb8ae820aaf9f5e20ad58c7f52fa829aa50561b90704ba"));
+var inviteStaff = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("a3362d96775288d6f12ad1989dc413c90a5284fc1ee9b91868535ec839452e2d"));
+var listStaffInvites = createServerFn({ method: "GET" }).middleware([authMiddleware]).handler(createSsrRpc("cae468a26a61e65b5fd410a01847c5795c8302c42bacd319c8fe2fb68a3c0271"));
+var seedDefaultPlans = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d = {}) => d).handler(createSsrRpc("631feae75775b5ef1da60fa0ada8a8215a1d9aa871538af9e6a9f9e0eb9b2f23"));
+var createGymForOwner = createServerFn({ method: "POST" }).middleware([authMiddleware]).validator((d) => d).handler(createSsrRpc("1d00432b57d602013f48d1cfe913aabaa95237275e048c3979615847c5d8621d"));
+//#endregion
+export { upsertMember as A, savePlan as C, seedDefaultPlans as D, saveTransformation as E, setEnquiryStatus as O, saveFacility as S, saveTrainer as T, listTrainers as _, importMembers as a, renewSubscription as b, listCheckins as c, listMembers as d, listPlans as f, listTestimonials as g, listStaffInvites as h, getOverview as i, updateGym as k, listEnquiries as l, listRenewals as m, createGymForOwner as n, inviteStaff as o, listRedList as p, deleteFacility as r, listAmenities as s, approveMember as t, listEquipment as u, listTransformations as v, saveTestimonial as w, reorderFacilities as x, rejectMember as y };

@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-CM8U5GxS.js";import{t}from"./facility-page-Bi2VzajJ.js";var n=e(),r=()=>(0,n.jsx)(t,{kind:`amenities`,title:`Amenities`,hint:`Whatever you add here appears on your public gym page and in the member app. Photograph it when you can.`});export{r as component};

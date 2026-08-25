@@ -1,0 +1,1 @@
+import{t as e}from"./shell-BHtLBYmW.js";var t=e;export{t as component};

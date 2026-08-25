@@ -1,0 +1,1 @@
+async function e(e,t=720){let n=await createImageBitmap(e),r=Math.min(1,t/Math.max(n.width,n.height)),i=Math.max(1,Math.round(n.width*r)),a=Math.max(1,Math.round(n.height*r)),o=document.createElement(`canvas`);o.width=i,o.height=a;let s=o.getContext(`2d`);if(!s)throw Error(`Could not read image`);return s.drawImage(n,0,0,i,a),o.toDataURL(`image/jpeg`,.82)}export{e as t};

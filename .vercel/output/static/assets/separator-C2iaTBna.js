@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-CM8U5GxS.js";import{t}from"./utils-C56uY2xg.js";var n=[{providerId:`grok-google`,idp:`google`,label:`Google`},{providerId:`grok-x`,idp:`twitter`,label:`X`}],r=e();function i({className:e,...n}){return(0,r.jsx)(`div`,{className:t(`h-px w-full bg-border`,e),...n})}export{n,i as t};

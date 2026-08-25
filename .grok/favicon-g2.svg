@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="Getdown Fitness">
+  <rect width="16" height="16" rx="4" fill="#FBFCFA"/>
+  <circle cx="8" cy="8.2" r="4.55" fill="none" stroke="#5B8C51" stroke-width="2.5"/>
+  <!-- open the right side of the circle into a G, then add the bar -->
+  <rect x="10.2" y="7.1" width="5" height="2.7" fill="#FBFCFA"/>
+  <rect x="7.6" y="7.1" width="5.3" height="2.7" rx="0.4" fill="#5B8C51"/>
+  <!-- tiny leaf point at 12 o'clock -->
+  <path fill="#5B8C51" d="M8 0.7 L9.15 3.1 H6.85 Z"/>
+</svg>

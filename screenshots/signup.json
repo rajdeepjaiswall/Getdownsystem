@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/signup",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 212,
+      "bodyTextHash": "a24f59ae46a1efe1fe1bb93700276149e032cacda86ea72e5aa6794a07a3ac37",
+      "bodyTextPrefix": "Getdown Fitness GET DOWN FOUNDATION Open your gym on Getdown Sta",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/signup.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Getdown Fitness",
+      "hasCanvas": false,
+      "bodyTextLen": 258,
+      "bodyTextHash": "ac247888baa95726fe859ab9e09f848c071e50f257ff38774affefa8503a5e71",
+      "bodyTextPrefix": "Getdown Fitness GET DOWN FOUNDATION Open your gym on Getdown Sta",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/signup-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/signup.json"
+}
